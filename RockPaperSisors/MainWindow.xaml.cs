@@ -26,7 +26,16 @@ namespace RockPaperSisors
 
         private int playerspicksslector = -1;
         private string[] playersPicks = new string[10];
-        
+
+        private double rockcount = 0.95;
+        private double Papercount = 0.95;
+        private double Sisorscount = 0.95;
+        private double Lizzardcount = 0.95;
+        private double Spockcount = 0.95;
+
+        private int score1 = 0;
+        private int score2 = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,13 +48,20 @@ namespace RockPaperSisors
             aiChoice();
 
             Winnercheck();
-           
+
+            Lizzardcount -= .1;
+            Papercount += .1;
+            Spockcount -= .1;
+            Sisorscount -= .1;
+
         }
 
 
 
-        public int Winnercheck()
+        public void Winnercheck()
         {
+            enemy.Content = aiselection;
+            Player.Content = playerchoice;
             playerspicksslector++;
             if(playerspicksslector >9)
             {
@@ -60,110 +76,261 @@ namespace RockPaperSisors
 
                     if(aiselection == "Scissors" || aiselection == "Lizard")
                     {
-                        return 1;
+                        score1 += 1;
+                       player_score.Content=score1;
                     }
                     else if(aiselection=="Rock")
                     {
-                        return 2;
+                        
                     }
                     else
                     {
-                        return 3;
+                        score2 += 1;
+                        EnemyScore.Content = score2;
                     }
-                    
+                    break;
 
 
                 case "Paper":
 
                     if (aiselection == "Rock" || aiselection == "Spock")
                     {
-                        return 1;
+                        score1 += 1;
+                        player_score.Content = score1;
                     }
                     else if (aiselection == "Paper")
                     {
-                        return 2;
+                        
                     }
                     else
                     {
-                        return 3;
+                        score2 += 1;
+                        EnemyScore.Content = score2; ;
                     }
-                    
+                    break;
 
 
                 case "Scissors":
 
                     if (aiselection == "Paper" || aiselection == "Lizard")
                     {
-                        return 1;
+                        score1 += 1;
+                        player_score.Content = score1; ;
                     }
                     else if (aiselection == "Scissors")
                     {
-                        return 2;
+                       
                     }
                     else
                     {
-                        return 3;
+                        score2 += 1;
+                        EnemyScore.Content = score2;
                     }
-                    
+                    break;
 
 
                 case "Lizard":
 
                     if (aiselection == "Paper" || aiselection == "Spock")
                     {
-                        return 1;
+                        score1 += 1;
+                        player_score.Content = score1; ;
                     }
                     else if (aiselection == "Lizard")
                     {
-                        return 2;
+
                     }
                     else
                     {
-                        return 3;
+                        score2 += 1;
+                        EnemyScore.Content = score2;
                     }
-                   
+                    break;
 
 
                 case "Spock":
 
                     if (aiselection == "Rock" || aiselection == "Scissors")
                     {
-                        return 1;
+                        score1 += 1;
+                        player_score.Content = score1;
                     }
                     else if (aiselection == "Spock")
                     {
-                        return 2;
+                       
                     }
                     else
                     {
-                        return 3;
+                        score2 += 1;
+                        EnemyScore.Content = score2;
                     }
-                 
 
-                    
+                    break;
+
 
             }
 
-            return 4;
+        
 
 
         }
 
         public void aiChoice()
         {
+            if(Spockcount <0)
+            {
+                Spockcount = 0;
+            }
+            if (rockcount < 0)
+            {
+                rockcount = 0;
+            }
 
-            string[] aichoicelist = new string[] {"Rock","Paper", "Scissors","Lizard","Spock" } ;
+            if (Lizzardcount < 0)
+            {
+                Lizzardcount = 0;
+            }
 
-            Random randomselect = new Random();
+            if (Papercount < 0)
+            {
+             Papercount = 0;
+            }
+            if (Sisorscount < 0)
+            {
+                Sisorscount = 0;
+            }
 
-            randomselect.Next(1, 5);
 
-            aiselection = aichoicelist[randomselect.Next(0, 4)];
+            double randnumber = new double();
+            Random random = new Random();
+            randnumber = random.NextDouble() * (Math.Exp(rockcount) + Math.Exp(Sisorscount) + Math.Exp(Papercount) + Math.Exp(Spockcount) + Math.Exp(Lizzardcount));
+
+
+            if(randnumber <Math.Exp(rockcount))
+            {
+                aiselection = "Rock";
+            }
+
+
+            else if(randnumber< Math.Exp(rockcount) + Math.Exp(Papercount))
+            {
+                aiselection = "Paper";
+            }
+
+            else if(randnumber < Math.Exp(rockcount) + Math.Exp(Papercount)+ Math.Exp(Sisorscount))
+            {
+                aiselection = "Scissors";
+            }
+            else if (randnumber < Math.Exp(rockcount) + Math.Exp(Papercount) + Math.Exp(Sisorscount)+Math.Exp(Lizzardcount))
+            {
+                aiselection = "Lizard";
+            }
+            else
+            {
+                aiselection = "Spock";
+            }
+
+           // if(rockcount>Papercount && rockcount >Sisorscount && rockcount > Lizzardcount && rockcount > Spockcount)
+           // {
+           //     aiselection = "Paper";
+           // }
+
+                //else if (Papercount > rockcount && Papercount > Sisorscount && Papercount > Lizzardcount && Papercount > Spockcount)
+                // {
+                //     aiselection = "Sissors";
+                // }
+
+                // else if (Sisorscount > Papercount && Sisorscount > rockcount && Sisorscount > Lizzardcount && Sisorscount > Spockcount)
+                // {
+                //     aiselection = "Rock";
+                // }
+                // else if (Lizzardcount > Papercount && Lizzardcount > Sisorscount && Lizzardcount > rockcount && Lizzardcount > Spockcount)
+                // {
+                //     aiselection = "Rock";
+                // }
+
+                // else
+                // {
+                //     aiselection = "Paper";
+                // }
+
+
+
+
+
+
+
+
+                //string[] aichoicelist = new string[] {"Rock","Paper", "Scissors","Lizard","Spock" } ;
+
+                //Random randomselect = new Random();
+
+                //randomselect.Next(1, 5);
+
+                //aiselection = aichoicelist[randomselect.Next(0, 4)];
 
 
         }
 
-       
+        private void paper_Click(object sender, RoutedEventArgs e)
+        {
+
+            playerchoice = "Paper";
+
+            aiChoice();
+
+            Winnercheck();
+
+            rockcount -= .1;
+            Spockcount -= .1;
+
+            Lizzardcount += .1;
+            Sisorscount += .1;
+        }
+
+        private void Sisors_Click(object sender, RoutedEventArgs e)
+        {
+            playerchoice = "Scissors";
+
+            aiChoice();
+
+            Winnercheck();
+
+            Papercount -= .1;
+            Lizzardcount -= .1;
+            rockcount += .1;
+            Spockcount += .1;
+        }
+
+        private void Lizard_Click(object sender, RoutedEventArgs e)
+        {
+            playerchoice = "Lizard";
+
+            aiChoice();
+
+            Winnercheck();
+
+            Spockcount -= .1;
+            Papercount -= .1;
+            rockcount += .1;
+            Sisorscount += .1;
+
+        }
+
+        private void Spock_Click(object sender, RoutedEventArgs e)
+        {
+            playerchoice = "Spock";
+
+            aiChoice();
+
+            Winnercheck();
+
+            Lizzardcount += .1;
+            Papercount += .1;
+            rockcount -= .1;
+            Sisorscount -= .1;
+        }
     }
+
 
 }

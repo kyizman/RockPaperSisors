@@ -7,13 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="Rock" Content="Button" HorizontalAlignment="Left" Margin="127,298,0,0" VerticalAlignment="Top" Height="40" Width="84" Click="Rock_Click"/>
-        <Button x:Name="paper" Content="Button" HorizontalAlignment="Left" Margin="216,298,0,0" VerticalAlignment="Top" Height="40" Width="80"/>
-        <Button x:Name="Sisors" Content="Button" HorizontalAlignment="Left" Margin="296,298,0,0" VerticalAlignment="Top" Height="40" Width="91"/>
-        <Button x:Name="Lizard" Content="Button" HorizontalAlignment="Left" Margin="400,298,0,0" VerticalAlignment="Top" Height="40" Width="72"/>
-        <Button x:Name="Spock" Content="Button" HorizontalAlignment="Left" Margin="484,298,0,0" VerticalAlignment="Top" Height="40" Width="81"/>
+        <Button x:Name="Rock" Content="Rock" HorizontalAlignment="Left" Margin="127,298,0,0" VerticalAlignment="Top" Height="40" Width="84" Click="Rock_Click"/>
+        <Button x:Name="paper" Content="Paper" HorizontalAlignment="Left" Margin="216,298,0,0" VerticalAlignment="Top" Height="40" Width="80" Click="paper_Click"/>
+        <Button x:Name="Sisors" Content="sissors" HorizontalAlignment="Left" Margin="296,298,0,0" VerticalAlignment="Top" Height="40" Width="91" Click="Sisors_Click"/>
+        <Button x:Name="Lizard" Content="lizard" HorizontalAlignment="Left" Margin="400,298,0,0" VerticalAlignment="Top" Height="40" Width="72" Click="Lizard_Click"/>
+        <Button x:Name="Spock" Content="Spock" HorizontalAlignment="Left" Margin="484,298,0,0" VerticalAlignment="Top" Height="40" Width="81" Click="Spock_Click"/>
         <Image x:Name="PlayerImage" HorizontalAlignment="Left" Height="203" Margin="72,25,0,0" VerticalAlignment="Top" Width="202"/>
         <Image x:Name="AIIMAGE" HorizontalAlignment="Left" Height="203" Margin="484,25,0,0" VerticalAlignment="Top" Width="202"/>
+        <Label x:Name="Player" Content="Label" HorizontalAlignment="Left" Margin="156,125,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="enemy" Content="enemy" HorizontalAlignment="Left" Margin="436,112,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="player_score" Content="0" HorizontalAlignment="Left" Margin="156,173,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="EnemyScore" Content="0" HorizontalAlignment="Left" Margin="446,173,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

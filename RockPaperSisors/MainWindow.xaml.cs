@@ -12,27 +12,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps;
+using MahApps.Metro.Controls;
 
 namespace RockPaperSisors
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
-
+        //The Choices of both ai and player for comparison 
         private string playerchoice;
         private string aiselection;
+        //Win quotes for the front end
+        private string[] aitrashtalk = new string[] {"Your Next Line Is","Yawn...","Infant","Go watch More rick and morty befor playing me again","Be glad tiny brain can Doge","Ai got Hands Huh..."
+             ,"Bronzie","I know your better than this","Im 3 parralell Universis Ahed of you!","Why?"   };
+        private string[] aicopieum = new string[] { "Wait You WON?!", "My little Brother Was Playing", "Hmmmm...", "My controller Got Unplugged", "Who Plays That?" };
+         
 
-        private int playerspicksslector = -1;
-        private string[] playersPicks = new string[10];
-
-        private double rockcount = 0.95;
-        private double Papercount = 0.95;
-        private double Sisorscount = 0.95;
-        private double Lizzardcount = 0.95;
-        private double Spockcount = 0.95;
-
+        //Starting Values for the Ai probability 
+        private double RockChances = 0.95;
+        private double paperChances = 0.95;
+        private double sisorsChances = 0.95;
+        private double lizzardChances = 0.95;
+        private double spockChances = 0.95;
+        //set scores for front end to 0 at the begining 
         private int score1 = 0;
         private int score2 = 0;
 
@@ -41,18 +46,24 @@ namespace RockPaperSisors
             InitializeComponent();
         }
 
+     
         private void Rock_Click(object sender, RoutedEventArgs e)
         {
+            //changes the players selection to rock
             playerchoice = "Rock";
-
+//loads respective image to the player image entitiy
+            PlayerImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/rock.jpg"));
+           
+            //calls the ai method to select an answer
             aiChoice();
-
+            //check who won the round
             Winnercheck();
 
-            Lizzardcount -= .1;
-            Papercount += .1;
-            Spockcount -= .1;
-            Sisorscount -= .1;
+            //increase the winning selections decrease loosing selections for the ai after the round
+           lizzardChances -= .1;
+            paperChances += .1;
+            spockChances += .1;
+            sisorsChances -= .1;
 
         }
 
@@ -60,16 +71,14 @@ namespace RockPaperSisors
 
         public void Winnercheck()
         {
-            enemy.Content = aiselection;
-            Player.Content = playerchoice;
-            playerspicksslector++;
-            if(playerspicksslector >9)
-            {
-                playerspicksslector = 0;
-            }
-
-            playersPicks[playerspicksslector] = playerchoice;
-
+            //random to select new quote
+            Random aitalknum = new();
+            //enemy.Content = aiselection;
+            //Player.Content = playerchoice;
+          
+            //switch based on the players selection
+            //each one will check if the ai chose the loosing hand, then check if they selected a tie, or the ai won
+            //with this if the player wins it will incroment the score and vice versa if the ai wins
             switch(playerchoice)
             {
                 case "Rock":
@@ -78,15 +87,20 @@ namespace RockPaperSisors
                     {
                         score1 += 1;
                        player_score.Content=score1;
+
+
+                        aitalk.Text = aicopieum[aitalknum.Next(0, aicopieum.Length - 1)];
                     }
                     else if(aiselection=="Rock")
                     {
-                        
+                        aitalk.Text = "Evenly Matched I See";
                     }
                     else
                     {
                         score2 += 1;
                         EnemyScore.Content = score2;
+
+                        aitalk.Text = aitrashtalk[aitalknum.Next(0, aitrashtalk.Length - 1)];
                     }
                     break;
 
@@ -97,15 +111,17 @@ namespace RockPaperSisors
                     {
                         score1 += 1;
                         player_score.Content = score1;
+                        aitalk.Text = aicopieum[aitalknum.Next(0, aicopieum.Length - 1)];
                     }
                     else if (aiselection == "Paper")
                     {
-                        
+                        aitalk.Text = "Evenly Matched I See";
                     }
                     else
                     {
                         score2 += 1;
                         EnemyScore.Content = score2; ;
+                        aitalk.Text = aitrashtalk[aitalknum.Next(0, aitrashtalk.Length - 1)];
                     }
                     break;
 
@@ -115,16 +131,18 @@ namespace RockPaperSisors
                     if (aiselection == "Paper" || aiselection == "Lizard")
                     {
                         score1 += 1;
-                        player_score.Content = score1; ;
+                        player_score.Content = score1; ; 
+                        aitalk.Text = aicopieum[aitalknum.Next(0, aicopieum.Length - 1)];
                     }
                     else if (aiselection == "Scissors")
                     {
-                       
+                        aitalk.Text = "Evenly Matched I See";
                     }
                     else
                     {
                         score2 += 1;
                         EnemyScore.Content = score2;
+                        aitalk.Text = aitrashtalk[aitalknum.Next(0, aitrashtalk.Length - 1)];
                     }
                     break;
 
@@ -135,15 +153,17 @@ namespace RockPaperSisors
                     {
                         score1 += 1;
                         player_score.Content = score1; ;
+                        aitalk.Text = aicopieum[aitalknum.Next(0, aicopieum.Length - 1)];
                     }
                     else if (aiselection == "Lizard")
                     {
-
+                        aitalk.Text = "Evenly Matched I See";
                     }
                     else
                     {
                         score2 += 1;
                         EnemyScore.Content = score2;
+                        aitalk.Text = aitrashtalk[aitalknum.Next(0, aitrashtalk.Length - 1)];
                     }
                     break;
 
@@ -154,15 +174,18 @@ namespace RockPaperSisors
                     {
                         score1 += 1;
                         player_score.Content = score1;
+                        aitalk.Text = aicopieum[aitalknum.Next(0, aicopieum.Length - 1)];
                     }
                     else if (aiselection == "Spock")
                     {
-                       
+                        aitalk.Text = "Evenly Matched I See";
+
                     }
                     else
                     {
                         score2 += 1;
                         EnemyScore.Content = score2;
+                        aitalk.Text = aitrashtalk[aitalknum.Next(0, aitrashtalk.Length - 1)];
                     }
 
                     break;
@@ -175,99 +198,75 @@ namespace RockPaperSisors
 
         }
 
+        //This is to use the weights of each selection to allow the ai to attempt to win more
         public void aiChoice()
         {
-            if(Spockcount <0)
+            //these if statments are to check wether the 
+            if(spockChances <0)
             {
-                Spockcount = 0;
+                spockChances = 0;
             }
-            if (rockcount < 0)
+            if (RockChances < 0)
             {
-                rockcount = 0;
-            }
-
-            if (Lizzardcount < 0)
-            {
-                Lizzardcount = 0;
+                RockChances = 0;
             }
 
-            if (Papercount < 0)
+            if (lizzardChances < 0)
             {
-             Papercount = 0;
+               lizzardChances = 0;
             }
-            if (Sisorscount < 0)
+
+            if (paperChances < 0)
             {
-                Sisorscount = 0;
+             paperChances = 0;
+            }
+            if (sisorsChances < 0)
+            {
+                sisorsChances = 0;
             }
 
 
             double randnumber = new double();
             Random random = new Random();
-            randnumber = random.NextDouble() * (Math.Exp(rockcount) + Math.Exp(Sisorscount) + Math.Exp(Papercount) + Math.Exp(Spockcount) + Math.Exp(Lizzardcount));
+            randnumber = random.NextDouble() * (Math.Exp(RockChances) + Math.Exp(sisorsChances) + Math.Exp(paperChances) + Math.Exp(spockChances) + Math.Exp(lizzardChances));
 
 
-            if(randnumber <Math.Exp(rockcount))
+            if(randnumber <Math.Exp(RockChances))
             {
                 aiselection = "Rock";
+
+                AIIMAGE.Source = new BitmapImage(new Uri("pack://application:,,,/Images/rock.jpg"));
             }
 
 
-            else if(randnumber< Math.Exp(rockcount) + Math.Exp(Papercount))
+            else if(randnumber< Math.Exp(RockChances) + Math.Exp(paperChances))
             {
                 aiselection = "Paper";
+                AIIMAGE.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Paper.jpg"));
             }
 
-            else if(randnumber < Math.Exp(rockcount) + Math.Exp(Papercount)+ Math.Exp(Sisorscount))
+            else if(randnumber < Math.Exp(RockChances) + Math.Exp(paperChances)+ Math.Exp(sisorsChances))
             {
+                AIIMAGE.Source = new BitmapImage(new Uri("pack://application:,,,/Images/sissors.jpg"));
+
                 aiselection = "Scissors";
             }
-            else if (randnumber < Math.Exp(rockcount) + Math.Exp(Papercount) + Math.Exp(Sisorscount)+Math.Exp(Lizzardcount))
+            else if (randnumber < Math.Exp(RockChances) + Math.Exp(paperChances) + Math.Exp(sisorsChances)+Math.Exp(lizzardChances))
             {
                 aiselection = "Lizard";
+                AIIMAGE.Source = new BitmapImage(new Uri("pack://application:,,,/Images/lizzard.jpg"));
             }
             else
             {
                 aiselection = "Spock";
+                AIIMAGE.Source = new BitmapImage(new Uri("pack://application:,,,/Images/spock.jpg"));
             }
 
-           // if(rockcount>Papercount && rockcount >Sisorscount && rockcount > Lizzardcount && rockcount > Spockcount)
-           // {
-           //     aiselection = "Paper";
-           // }
-
-                //else if (Papercount > rockcount && Papercount > Sisorscount && Papercount > Lizzardcount && Papercount > Spockcount)
-                // {
-                //     aiselection = "Sissors";
-                // }
-
-                // else if (Sisorscount > Papercount && Sisorscount > rockcount && Sisorscount > Lizzardcount && Sisorscount > Spockcount)
-                // {
-                //     aiselection = "Rock";
-                // }
-                // else if (Lizzardcount > Papercount && Lizzardcount > Sisorscount && Lizzardcount > rockcount && Lizzardcount > Spockcount)
-                // {
-                //     aiselection = "Rock";
-                // }
-
-                // else
-                // {
-                //     aiselection = "Paper";
-                // }
+         
 
 
 
 
-
-
-
-
-                //string[] aichoicelist = new string[] {"Rock","Paper", "Scissors","Lizard","Spock" } ;
-
-                //Random randomselect = new Random();
-
-                //randomselect.Next(1, 5);
-
-                //aiselection = aichoicelist[randomselect.Next(0, 4)];
 
 
         }
@@ -276,59 +275,66 @@ namespace RockPaperSisors
         {
 
             playerchoice = "Paper";
-
+            PlayerImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Paper.jpg"));
             aiChoice();
 
             Winnercheck();
 
-            rockcount -= .1;
-            Spockcount -= .1;
+            RockChances -= .1;
+            spockChances -= .1;
 
-            Lizzardcount += .1;
-            Sisorscount += .1;
+           lizzardChances += .1;
+            sisorsChances += .1;
         }
 
         private void Sisors_Click(object sender, RoutedEventArgs e)
         {
             playerchoice = "Scissors";
-
+            PlayerImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/sissors.jpg"));
             aiChoice();
 
             Winnercheck();
 
-            Papercount -= .1;
-            Lizzardcount -= .1;
-            rockcount += .1;
-            Spockcount += .1;
+            paperChances -= .1;
+           lizzardChances -= .1;
+            RockChances += .1;
+            spockChances += .1;
         }
 
         private void Lizard_Click(object sender, RoutedEventArgs e)
         {
             playerchoice = "Lizard";
-
+            PlayerImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/lizzard.jpg"));
             aiChoice();
 
             Winnercheck();
 
-            Spockcount -= .1;
-            Papercount -= .1;
-            rockcount += .1;
-            Sisorscount += .1;
+            spockChances -= .1;
+            paperChances -= .1;
+            RockChances += .1;
+            sisorsChances += .1;
 
         }
 
         private void Spock_Click(object sender, RoutedEventArgs e)
         {
             playerchoice = "Spock";
-
+            PlayerImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/spock.jpg"));
             aiChoice();
 
             Winnercheck();
 
-            Lizzardcount += .1;
-            Papercount += .1;
-            rockcount -= .1;
-            Sisorscount -= .1;
+           lizzardChances += .1;
+            paperChances += .1;
+            RockChances -= .1;
+            sisorsChances -= .1;
+        }
+
+        private void rules_Click(object sender, RoutedEventArgs e)
+        {
+            RockPaperSisors.rules rules = new();
+
+            rules.Show();
         }
     }
 

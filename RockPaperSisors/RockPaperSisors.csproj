@@ -6,4 +6,53 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\lizzard.jpg" />
+    <None Remove="Images\Paper.jpg" />
+    <None Remove="Images\rock.jpg" />
+    <None Remove="Images\rules.jpeg" />
+    <None Remove="Images\sissors.jpg" />
+    <None Remove="Images\spock.jpg" />
+    <None Remove="Resources\lizzard.jpg" />
+    <None Remove="Resources\Paper.jpg" />
+    <None Remove="Resources\rock.jpg" />
+    <None Remove="Resources\rules.jpeg" />
+    <None Remove="Resources\sissors.jpg" />
+    <None Remove="Resources\spock.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\lizzard.jpg" />
+    <Resource Include="Images\Paper.jpg" />
+    <Resource Include="Images\rock.jpg" />
+    <Resource Include="Images\rules.jpeg" />
+    <Resource Include="Images\sissors.jpg" />
+    <Resource Include="Images\spock.jpg" />
+    <Resource Include="Resources\lizzard.jpg" />
+    <Resource Include="Resources\Paper.jpg" />
+    <Resource Include="Resources\rock.jpg" />
+    <Resource Include="Resources\rules.jpeg" />
+    <Resource Include="Resources\sissors.jpg" />
+    <Resource Include="Resources\spock.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
